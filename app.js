@@ -1,13 +1,39 @@
 const express = require('express')
 const app = express()
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;  
 
-app.get('/', function (req, res) {
-  res.send('Hello World, is it November?')
+app.set('view engine', 'ejs');
+
+let myName = 'David';
+
+app.get('/', (req, res) => {
+  //res.send('<!DOCTYPE html><html lang="en"><h1>Hello World, is it November?</h1>')
+
+  res.send(`<h3> Hi, ${ myName } </h3>`)
+
+})
+
+
+app.get('/show', (req, res) => {
+
+    // res.sendFile('index.html');
+
+    res.sendFile('index.html' , { root : __dirname});
+
+
+})
+
+app.get('/ejs', (req,res) => {
+
+  //ejs stuff goes here
+  
+  // user res.render to load up an ejs view file
+  res.render('index');
+
 })
 
 console.log('in the node console');
 
 app.listen(PORT, () => {
-  console.log(`Server is running & listening on port: ${PORT}`);
-});
+  console.log(`Example app listening on port ${ PORT }`)
+})
