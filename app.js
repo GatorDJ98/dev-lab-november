@@ -7,7 +7,7 @@ app.set('view engine', 'ejs');
 let myName = 'David';
 
 app.get('/', (req, res) => {
-  //res.send('<!DOCTYPE html><html lang="en"><h1>Hello World, is it November?</h1>')
+  // res.send(myName);
 
   res.send(`<h3> Hi, ${ myName } </h3>`)
 
@@ -23,14 +23,25 @@ app.get('/show', (req, res) => {
 
 })
 
+console.log("before app dot get to slash ejs", myName);
+
 app.get('/ejs', (req,res) => {
 
   //ejs stuff goes here
+  console.log("in /ejs before render:", myName);
   
   // user res.render to load up an ejs view file
-  res.render('index');
+  res.render('index', { myName: myName } );  // left one is ejs, right side is node land
+  console.log("after res render /ejs", myName);
+})
+
+app.get('/name', (req,res) => {
+
+  console.log("in get to slash name:", req.query.ejsFormName);
 
 })
+
+console.log("after app dot get to slash ejs", myName);
 
 console.log('in the node console');
 
